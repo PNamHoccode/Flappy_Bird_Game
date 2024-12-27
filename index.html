@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flappy Bird</title>
     <link rel="icon" href="/image/flappybird.png" />
-    <link rel="stylesheet" href="flappybird.css" />
+    <link rel="stylesheet" href="/css/flappybird.css" />
+
+    <!-- Thêm thư viện Solana Web3 -->
     <script src="flappybird.js" defer></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
   </head>
-
   <body>
     <!-- Navbar -->
     <div class="container">
-      <nav> 
-         <img src="/image/logo-m200x52.webp" alt="Logo" class="logo" />
+      <nav>
+        <img src="/image/logo-m200x52.webp" alt="Logo" class="logo" />
         <div class="menu-left">
-        
           <a href="/exchange.html">Đổi điểm</a>
           <div class="dropdown">
             <a class="dropdown-toggle" href="#">Tài Khoản</a>
@@ -31,18 +31,14 @@
           </div>
         </div>
       </nav>
-      
     </div>
 
     <!-- Canvas -->
-    <div style="margin-top: 60px;">
+    <div style="margin-top: 60px">
       <div class="game-container">
-          <canvas id="board"></canvas>
+        <canvas id="board"></canvas>
       </div>
-  </div>
-  
-    
-    
+    </div>
 
     <!-- Game Over -->
     <div id="game-over" style="display: none">
@@ -54,5 +50,7 @@
       <p id="medal">Medal: <img id="medal-image" alt="Medal Image" /></p>
       <button onclick="restartGame()">Restart</button>
     </div>
+
+    <!-- Connect Wallet Button -->
   </body>
 </html>

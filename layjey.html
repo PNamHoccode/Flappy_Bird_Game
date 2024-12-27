@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Solana PublicKey</title>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.42.0/dist/solanaWeb3.min.js"></script>
+  </head>
+  <body>
+    <h1>Solana PublicKey from Phantom Wallet</h1>
+    <button id="connect-wallet-btn">Connect Wallet</button>
+    <p id="wallet-address"></p>
+
+    <script>
+      document.querySelector("#connect-wallet-btn").addEventListener("click", async () => {
+        if (window.solana && window.solana.isPhantom) {
+          try {
+            // Kết nối với ví Phantom
+            const response = await window.solana.connect();
+            const walletAddress = response.publicKey.toString();
+
+            // Hiển thị PublicKey trên trang
+            document.querySelector("#wallet-address").innerText = `Wallet Address: ${walletAddress}`;
+            alert(`Wallet connected: ${walletAddress}`);
+          } catch (error) {
+            console.error("Error connecting to Phantom wallet:", error);
+            alert("Không thể kết nối với ví Phantom.");
+          }
+        } else {
+          alert("Phantom Wallet chưa được cài đặt!");
+        }
+      });
+    </script>
+  </body>
+</html>

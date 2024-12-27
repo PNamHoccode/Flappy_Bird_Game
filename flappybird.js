@@ -57,10 +57,10 @@ let currentBackgroundImg = backgroundImg1;
 
 // Medal Images
 let goldMedalImg = new Image();
-goldMedalImg.src = "./image/coint.png";
+goldMedalImg.src = "./image/gold.png";
 
 let silverMedalImg = new Image();
-silverMedalImg.src = "./image/flappy-coin.png";
+silverMedalImg.src = "./image/silver-medal.png";
 
 let bronzeMedalImg = new Image();
 bronzeMedalImg.src = "./image/bronze.png";
@@ -137,6 +137,7 @@ function update() {
     document.getElementById("score").innerText = score;
     document.getElementById("best-score").innerText = bestScore;
     document.getElementById("game-over").style.display = "block";
+
     return;
   }
 
@@ -181,6 +182,7 @@ function update() {
   context.fillStyle = "white";
   context.font = "40px 'Press Start 2P', sans-serif";
   context.fillText(score, 5, 45);
+  document.querySelector(".scoreflappy").innerText = Math.floor(score);
 }
 
 function placePipes() {
@@ -254,6 +256,9 @@ function checkBestScore() {
   } else {
     medalImage = NoMedalImg;
   }
+  let totalFlappy = parseFloat(localStorage.getItem("totalFlappy")) || 0;
+  totalFlappy += score; // Cộng điểm hiện tại vào tổng điểm
+  localStorage.setItem("totalFlappy", totalFlappy); // Lưu lại vào localStorage
 
   document.getElementById("medal").innerHTML = "Medal: ";
   const medalImageElement = new Image();
@@ -264,6 +269,7 @@ function checkBestScore() {
   document.getElementById("score").innerText = score;
   document.getElementById("best-score").innerText = bestScore;
   document.getElementById("game-over").style.display = "block";
+  document.querySelector(".number").innerText = totalFlappy.toFixed(0);
 }
 
 function restartGame() {
